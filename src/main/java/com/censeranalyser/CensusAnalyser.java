@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class CensusAnalyser {
-    public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
+    public int loadIndiaCensusData(String csvFilePath, CensusAnalyserException.ExceptionType type) throws CensusAnalyserException {
         Iterator<IndiaCensusCSV> censusCSVIterator = null;
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
@@ -23,8 +23,8 @@ public class CensusAnalyser {
                 IndiaCensusCSV indiaCensusCSV=indiaCensusCSVIterator.next();
 
             }return numOfRecords;
-        } catch (IOException e) {
-            throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        } catch (Exception e) {
+            throw new CensusAnalyserException(e.getMessage(),type);
         }
     }
 }
